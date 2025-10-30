@@ -22,3 +22,5 @@ Despliegue en GitHub Pages (recomendado):
 Notas:
 - Los tests y simulacros se abren en ChatGPT (en este chat). La app muestra botones y guarda resultados manualmente.
 - Si quieres integración automática de tests, puedo añadir un backend más adelante.
+
+// Test de refresco 30/10.

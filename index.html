@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Plan SESCAM Marisa — Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="app">
+    <header>
+      <div class="brand">
+        <h1>Plan SESCAM <span class="highlight">Marisa</span></h1>
+        <p class="subtitle">Tu tablero de estudio — Temas 4–30</p>
+      </div>
+      <nav>
+        <button id="btn-today" class="nav-btn active">Hoy</button>
+        <button id="btn-calendar" class="nav-btn">Calendario</button>
+        <button id="btn-progress" class="nav-btn">Progreso</button>
+        <button id="btn-settings" class="nav-btn">Ajustes</button>
+      </nav>
+    </header>
+
+    <main>
+      <!-- TODAY VIEW -->
+      <section id="view-today" class="view active">
+        <div class="left-panel">
+          <div class="card">
+            <h2>Hoy</h2>
+            <div id="today-date" class="muted"></div>
+            <h3 id="today-topics-title">Tema del día</h3>
+            <ul id="today-topics" class="topic-list"></ul>
+            <div class="actions">
+              <button id="open-test" class="primary">Abrir test en ChatGPT</button>
+              <button id="mark-completed" class="secondary">Marcar tema completado</button>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Modo profesor</h3>
+            <ol id="prof-steps">
+              <li>Bloque 1: Leer el tema 1 vez y subrayar (50 min)</li>
+              <li>Bloque 2: Hacer esquema y resumen (50 min)</li>
+              <li>Bloque 3: Autoevaluación: repasa el esquema y realiza el test en ChatGPT (50 min)</li>
+              <li>Bloque 4: Resumen final: 5 frases clave + relacionar con otros temas (50 min)</li>
+            </ol>
+          </div>
+
+          <div class="card mini">
+            <h4>Repasos próximos</h4>
+            <ul id="repasos-list" class="muted"></ul>
+          </div>
+        </div>
+
+        <div class="center-panel">
+          <div class="card pomodoro">
+            <h3>Pomodoro 50 / 10</h3>
+            <div id="timer">50:00</div>
+            <div class="pom-controls">
+              <button id="start-pom" class="primary">Iniciar bloque</button>
+              <button id="pause-pom" class="secondary">Pausa/Resume</button>
+              <button id="stop-pom" class="tertiary">Parar</button>
+            </div>
+            <div class="pom-info">Bloque: <span id="pom-mode">Estudio</span> — Completados hoy: <span id="pom-count">0</span></div>
+          </div>
+
+          <div class="card sim-card">
+            <h3>Simulacro / Tests</h3>
+            <div id="sim-info" class="muted">Próximo simulacro: <strong id="next-sim">No programado</strong></div>
+            <div class="actions">
+              <button id="start-sim" class="primary">Iniciar simulacro ahora</button>
+              <button id="view-errors" class="secondary">Ver errores frecuentes</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="right-panel">
+          <div class="card stats">
+            <h3>Progreso</h3>
+            <div class="progress-ring" id="progress-ring">
+              <svg viewBox="0 0 36 36">
+                <path class="bg" d="M18 2.0845
+                  a 15.9155 15.9155 0 0 1 0 31.831
+                  a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                <path class="meter" id="meter" stroke-dasharray="0,100" d="M18 2.0845
+                  a 15.9155 15.9155 0 0 1 0 31.831
+                  a 15.9155 15.9155 0 0 1 0 -31.831"/>
+              </svg>
+              <div class="percent" id="percent">0%</div>
+            </div>
+            <ul class="muted">
+              <li>Temas completados: <span id="count-completed">0</span></li>
+              <li>Tests realizados: <span id="count-tests">0</span></li>
+              <li>Repasos pendientes: <span id="count-repasos">0</span></li>
+            </ul>
+          </div>
+
+          <div class="card legend">
+            <h4>Leyenda</h4>
+            <ul>
+              <li><span class="dot green"></span> Completado</li>
+              <li><span class="dot yellow"></span> Repaso pendiente</li>
+              <li><span class="dot red"></span> Atrasado</li>
+              <li><span class="dot blue"></span> Simulacro</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- CALENDAR VIEW -->
+      <section id="view-calendar" class="view">
+        <div class="card wide">
+          <div class="calendar-header">
+            <button id="prev-month" class="tertiary">&lt;</button>
+            <div id="month-year"></div>
+            <button id="next-month" class="tertiary">&gt;</button>
+          </div>
+          <div id="calendar-grid" class="calendar-grid"></div>
+        </div>
+      </section>
+
+      <!-- PROGRESS VIEW -->
+      <section id="view-progress" class="view">
+        <div class="card wide">
+          <h2>Estadísticas y avance</h2>
+          <div id="charts" class="charts">
+            <div class="chart-card">
+              <h4>Temas dominados</h4>
+              <div id="dominated-list" class="muted"></div>
+            </div>
+            <div class="chart-card">
+              <h4>Errores frecuentes</h4>
+              <div id="errors-list" class="muted"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SETTINGS -->
+      <section id="view-settings" class="view">
+        <div class="card wide">
+          <h2>Ajustes</h2>
+          <label>Campanilla: <input type="range" id="vol" min="0" max="1" step="0.1" value="0.5"></label>
+          <p class="muted">Los tests se abren en ChatGPT; aquí se registran los resultados manualmente.</p>
+        </div>
+      </section>
+
+    </main>
+
+    <footer>
+      <small>Plan SESCAM Marisa — Panel web • Visual moderno • Tests sincronizados con ChatGPT</small>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

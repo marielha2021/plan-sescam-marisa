@@ -272,3 +272,4 @@ qs("#btn-today").addEventListener("click", ()=>{ document.querySelector("#btn-to
 qs("#btn-calendar").addEventListener("click", ()=>{ document.querySelector("#btn-calendar").click(); });
 qs("#btn-progress").addEventListener("click", ()=>{ document.querySelector("#btn-progress").click(); });
 qs("#btn-settings").addEventListener("click", ()=>{ document.querySelector("#btn-settings").click(); });
+// Ultimo refresh de prueba para Marisa PRO - 30/10

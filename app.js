@@ -258,9 +258,6 @@ qs("#start-sim").addEventListener("click", ()=>{
 qs("#view-errors").addEventListener("click", ()=>{
   const errors = (state.tests && state.tests.errors) || [];
   if(!errors.length) alert("No tienes errores registrados aún.");
-" + errors.join("
-"));
-});
 
 renderToday();
 renderCalendar();
